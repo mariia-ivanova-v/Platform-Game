@@ -2,6 +2,6 @@ class Keyboard{
     LEFT = false;
     RIGHT = false;
     UP = false;
-    THROW = false;
+    SHOOT = false;
     SPACE = false;
 }

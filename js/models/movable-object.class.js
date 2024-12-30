@@ -1,27 +1,42 @@
-class MovableObject {
-    x = -20;
-    img;
-    width = 250;
-    height = 250;
-    imageCash = [];
+class MovableObject extends DrawableObject {
     currentImage = 0;
     speed = 0.2;
     otherDirection = false;
     speedY = 0;
     acceleration = 1;
+    energy = 100;
+    lastHit = 0;
 
-    loadImage(path){
-        this.img = new Image();
-        this.img.src = path;
+
+
+
+
+
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height;
     }
 
-    loadImages(arr){
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCash[path] = img;
-        });
-        
+    hit(){
+        this.energy -= 10;
+        if (this.energy <= 0){
+            this.energy = 0;
+            console.log('Dead');
+        } else{
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime()-this.lastHit;
+        timepassed = timepassed / 1000;
+        return timepassed<0.5;
+    }
+
+    isDead(){
+        return this.energy == 0;
     }
 
     applyGravity(){
@@ -32,6 +47,10 @@ class MovableObject {
             }
         }, 1000/25)
     }
+
+    /*atack(){
+        return true;
+    }*/
 
     isAbouveGround(){
         return this.y < 100;

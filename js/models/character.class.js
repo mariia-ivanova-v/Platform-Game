@@ -25,6 +25,29 @@ class Character extends MovableObject{
         'img/gangster/walk/tile009.png'
     ];
 
+    IMAGES_DEAD = [
+        'img/gangster/death/tile000.png',
+        'img/gangster/death/tile000.png',
+        'img/gangster/death/tile001.png',
+        'img/gangster/death/tile001.png',
+        'img/gangster/death/tile002.png',
+        'img/gangster/death/tile002.png',
+        'img/gangster/death/tile003.png',
+        'img/gangster/death/tile003.png',
+        'img/gangster/death/tile004.png',
+        'img/gangster/death/tile004.png',
+        'img/gangster/death/tile004.png',
+        'img/gangster/death/tile004.png'
+    ]
+
+    IMAGES_HURT = [
+        'img/gangster/hurt/tile000.png',
+        'img/gangster/hurt/tile001.png',
+        'img/gangster/hurt/tile002.png',
+        'img/gangster/hurt/tile003.png',
+        'img/gangster/hurt/tile004.png',
+    ]
+
     IMAGES_IDLE = [
         'img/gangster/idle/tile000.png',
         'img/gangster/idle/tile000.png',
@@ -62,7 +85,7 @@ class Character extends MovableObject{
     ];
     world;
     speed = 0.45;
-    y = 35;//105
+    y = 39;//105
     walking_sound = new Audio('sounds/walking.wav');
     jump_sound = new Audio('sounds/jump.wav')
 
@@ -71,23 +94,23 @@ class Character extends MovableObject{
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
         this.applyGravity();
         this.animate();
 
     }
 
     animate(){
+
         setInterval(() =>{
-            //this.walking_sound.pause();
             if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
                 this.x += this.speed;
                 this.otherDirection = false;
-                //this.walking_sound.play();
             }
             if(this.world.keyboard.LEFT && this.x > -719){
                 this.x -= this.speed;
                 this.otherDirection = true;
-                //this.walking_sound.play();
             }
             if(this.world.keyboard.UP && !this.isAbouveGround()){
                 this.speedY = 15;
@@ -99,6 +122,12 @@ class Character extends MovableObject{
         setInterval(() => {
             this.walking_sound.pause();
             this.jump_sound.pause();
+            if(this.isDead()){
+                this.playAnimation(this.IMAGES_DEAD);
+            }else if(this.isHurt()){
+                this.playAnimation(this.IMAGES_HURT);
+            }
+            else{
             if(this.isAbouveGround()){
                 this.playAnimation(this.IMAGES_JUMPING);
                 this.jump_sound.play();
@@ -110,7 +139,7 @@ class Character extends MovableObject{
                 }else{
                         this.playAnimation(this.IMAGES_IDLE);
                 }
-            }
+            }}
         }, 100)
     }
 

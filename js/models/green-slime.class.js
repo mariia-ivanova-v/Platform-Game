@@ -14,7 +14,7 @@ class GreenSlime extends MovableObject{
         super().loadImage('img/slimes/green/idle/tile000.png');
         this.width = 150;
         this.height = 150;
-        this.y = 210;
+        this.y = 205;
 
         this.x = 200 + Math.random()*500;
         this.loadImages(this.IMAGES_WALKING);
@@ -23,12 +23,7 @@ class GreenSlime extends MovableObject{
 
     animate(){
         setInterval(() => {
-            if(this.currentImage >= this.IMAGES_WALKING.length){
-                this.currentImage = 0;
-            }
-            let path = this.IMAGES_WALKING[this.currentImage];
-            this.img = this.imageCash[path];
-            this.currentImage++;
+            this.playAnimation(this.IMAGES_WALKING);
         }, 100)
         this.moveLeft();
     }

@@ -1,12 +1,14 @@
 class MovableObject {
     x = -20;
-    y = 105;
     img;
     width = 250;
     height = 250;
     imageCash = [];
     currentImage = 0;
     speed = 0.2;
+    otherDirection = false;
+    speedY = 0;
+    acceleration = 1;
 
     loadImage(path){
         this.img = new Image();
@@ -22,6 +24,19 @@ class MovableObject {
         
     }
 
+    applyGravity(){
+        setInterval(()=> {
+            if (this.isAbouveGround() || this.speedY>0){
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+            }
+        }, 1000/25)
+    }
+
+    isAbouveGround(){
+        return this.y < 100;
+    }
+
     moveRight() {
         console.log('moving right');
     }
@@ -29,5 +44,13 @@ class MovableObject {
         setInterval(() => {
             this.x -= this.speed;
         }, 1000/60)
+        }
+        playAnimation(images){
+            if(this.currentImage >= images.length){
+                this.currentImage = 0;
+            }
+            let path = images[this.currentImage];
+            this.img = this.imageCash[path];
+            this.currentImage++;
         }
 }

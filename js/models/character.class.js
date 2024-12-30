@@ -1,4 +1,17 @@
 class Character extends MovableObject{
+    IMAGES_JUMPING = [
+        'img/gangster/jump/tile000.png',
+        'img/gangster/jump/tile001.png',
+        'img/gangster/jump/tile002.png',
+        'img/gangster/jump/tile003.png',
+        'img/gangster/jump/tile004.png',
+        'img/gangster/jump/tile005.png',
+        'img/gangster/jump/tile006.png',
+        'img/gangster/jump/tile007.png',
+        'img/gangster/jump/tile008.png',
+        'img/gangster/jump/tile009.png'
+    ];
+    
     IMAGES_WALKING = [
         'img/gangster/walk/tile000.png',
         'img/gangster/walk/tile001.png',
@@ -11,22 +24,93 @@ class Character extends MovableObject{
         'img/gangster/walk/tile008.png',
         'img/gangster/walk/tile009.png'
     ];
+
+    IMAGES_IDLE = [
+        'img/gangster/idle/tile000.png',
+        'img/gangster/idle/tile000.png',
+        'img/gangster/idle/tile000.png',
+        'img/gangster/idle/tile001.png',
+        'img/gangster/idle/tile001.png',
+        'img/gangster/idle/tile001.png',
+        'img/gangster/idle/tile002.png',
+        'img/gangster/idle/tile002.png',
+        'img/gangster/idle/tile002.png',
+        'img/gangster/idle/tile003.png',
+        'img/gangster/idle/tile003.png',
+        'img/gangster/idle/tile003.png',
+        'img/gangster/idle/tile004.png',
+        'img/gangster/idle/tile004.png',
+        'img/gangster/idle/tile004.png',
+        'img/gangster/idle/tile005.png',      
+        'img/gangster/idle/tile005.png',        
+        'img/gangster/idle/tile005.png',
+        'img/gangster/idle/tile006.png',        
+        'img/gangster/idle/tile006.png',
+        'img/gangster/idle/tile006.png',
+        'img/gangster/idle/tile007.png',
+        'img/gangster/idle/tile007.png',
+        'img/gangster/idle/tile007.png',
+        'img/gangster/idle/tile008.png',
+        'img/gangster/idle/tile008.png',
+        'img/gangster/idle/tile008.png',
+        'img/gangster/idle/tile009.png',
+        'img/gangster/idle/tile009.png',
+        'img/gangster/idle/tile009.png',
+        'img/gangster/idle/tile010.png',
+        'img/gangster/idle/tile010.png',
+        'img/gangster/idle/tile010.png'
+    ];
     world;
+    speed = 0.45;
+    y = 35;//105
+    walking_sound = new Audio('sounds/walking.wav');
+    jump_sound = new Audio('sounds/jump.wav')
 
     constructor(){
-        super().loadImage('img/gangster/idle/tile000.png')
+        super().loadImage('img/gangster/idle/tile000.png');
+        this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_IDLE);
+        this.applyGravity();
         this.animate();
+
     }
 
     animate(){
-        setInterval(() => {
-            if(this.currentImage >= this.IMAGES_WALKING.length){
-                this.currentImage = 0;
+        setInterval(() =>{
+            //this.walking_sound.pause();
+            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+                this.x += this.speed;
+                this.otherDirection = false;
+                //this.walking_sound.play();
             }
-            let path = this.IMAGES_WALKING[this.currentImage];
-            this.img = this.imageCash[path];
-            this.currentImage++;
+            if(this.world.keyboard.LEFT && this.x > -719){
+                this.x -= this.speed;
+                this.otherDirection = true;
+                //this.walking_sound.play();
+            }
+            if(this.world.keyboard.UP && !this.isAbouveGround()){
+                this.speedY = 15;
+            }
+
+            this.world.camera_x = -this.x;
+        }, 1000/500);
+
+        setInterval(() => {
+            this.walking_sound.pause();
+            this.jump_sound.pause();
+            if(this.isAbouveGround()){
+                this.playAnimation(this.IMAGES_JUMPING);
+                this.jump_sound.play();
+            }else{
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+                    this.playAnimation(this.IMAGES_WALKING);
+                    this.walking_sound.play();
+
+                }else{
+                        this.playAnimation(this.IMAGES_IDLE);
+                }
+            }
         }, 100)
     }
 

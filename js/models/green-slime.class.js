@@ -16,6 +16,7 @@ class GreenSlime extends MovableObject{
         'img/slimes/green/atack/tile002.png',
         'img/slimes/green/atack/tile003.png'
     ]
+    //ctx.rect(this.x+40, this.y+110, this.width-80,this.height-110);
 
     constructor(){
         super().loadImage('img/slimes/green/idle/tile000.png');
@@ -34,6 +35,7 @@ class GreenSlime extends MovableObject{
             this.playAnimation(this.IMAGES_WALKING);
         }, 100)
         this.moveLeft();
+        //this.updateCollisionBox()
 /*
             if(this.isHurt){
             this.playAnimation(this.IMAGES_ATACK);

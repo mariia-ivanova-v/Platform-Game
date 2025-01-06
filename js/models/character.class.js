@@ -85,9 +85,14 @@ class Character extends MovableObject{
     ];
     world;
     speed = 0.45;
+    x = -20;
     y = 39;//105
     walking_sound = new Audio('sounds/walking.wav');
-    jump_sound = new Audio('sounds/jump.wav')
+    jump_sound = new Audio('sounds/jump.wav');
+    character_collision_x = this.x+80;
+    character_collision_y = this.y+90;
+    //(this.x+80, this.y+90, this.width-180,this.height-90);
+    
 
     constructor(){
         super().loadImage('img/gangster/idle/tile000.png');
@@ -116,6 +121,7 @@ class Character extends MovableObject{
                 this.speedY = 15;
             }
 
+            //this.updateCollisionBox();
             this.world.camera_x = -this.x;
         }, 1000/500);
 
@@ -144,4 +150,6 @@ class Character extends MovableObject{
     }
 
     jump(){}
+
+
 }

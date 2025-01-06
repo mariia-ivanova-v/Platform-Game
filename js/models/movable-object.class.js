@@ -6,6 +6,8 @@ class MovableObject extends DrawableObject {
     acceleration = 1;
     energy = 100;
     lastHit = 0;
+    money = 0;
+    ammo = 0;
 
 
 
@@ -13,10 +15,32 @@ class MovableObject extends DrawableObject {
 
 
     isColliding(mo){
-        return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+        let mo_collision_x = mo.x;
+        let mo_collision_y = mo.y;
+        let mo_collision_height = mo.height;
+        let mo_collision_width = mo.width;
+
+        let character_collision_x = this.x+80;
+        let character_collision_y = this.y+90;
+        let character_collision_width = this.width-180;
+        let character_collision_height = this.height-90;
+
+        if (mo instanceof GreenSlime){
+            mo_collision_x = mo.x+40;
+            mo_collision_y = mo.y+110;
+            mo_collision_width = mo.width-80;
+            mo_collision_height = mo.height-110;
+        }else if(mo instanceof BlueSlime){
+            mo_collision_x = mo.x+50;
+            mo_collision_y = mo.y+150;
+            mo_collision_width = mo.width-110;
+            mo_collision_height = mo.height-150;
+        }
+    
+        return character_collision_x + character_collision_width > mo_collision_x &&
+        character_collision_y + character_collision_height > mo_collision_y &&
+        character_collision_x < mo_collision_x &&
+        character_collision_y < mo_collision_y + mo_collision_height;
     }
 
     hit(){
@@ -51,17 +75,30 @@ class MovableObject extends DrawableObject {
     /*atack(){
         return true;
     }*/
+   /*
+    updateCollisionBox() {
+            this.collision_x = this.x + 80;
+            this.collision_y = this.y + 90;
+            this.collision_width = this.width - 180;
+            this.collision_height = this.height - 90;
+    }*/
 
     isAbouveGround(){
+        if(this instanceof AmmoShoot){
+            return true;
+        }else{
         return this.y < 100;
+        }
     }
 
     moveRight() {
+        //this.updateCollisionBox();
         console.log('moving right');
     }
     moveLeft(){
         setInterval(() => {
             this.x -= this.speed;
+            //this.updateCollisionBox();
         }, 1000/60)
         }
         playAnimation(images){
@@ -72,4 +109,5 @@ class MovableObject extends DrawableObject {
             this.img = this.imageCash[path];
             this.currentImage++;
         }
+        
 }

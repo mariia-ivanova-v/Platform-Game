@@ -9,6 +9,7 @@ class BlueSlime extends MovableObject{
             'img/slimes/blue/walk/tile006.png',
             'img/slimes/blue/walk/tile007.png'
         ];
+        //ctx.rect(this.x+50, this.y+150, this.width-110,this.height-150);
     
         constructor(){
             super().loadImage('img/slimes/blue/idle/tile000.png');

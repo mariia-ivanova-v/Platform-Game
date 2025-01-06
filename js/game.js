@@ -22,7 +22,7 @@ window.addEventListener('keydown', (e) =>{
         keyboard.UP = true;
     }
     if ( e.keyCode == 69){
-        keyboard.THROW = true;
+        keyboard.SHOOT = true;
     }
     if ( e.keyCode == 32){
         keyboard.SPACE = true;
@@ -40,7 +40,7 @@ window.addEventListener('keyup', (e) =>{
         keyboard.UP = false;
     }
     if ( e.keyCode == 69){
-        keyboard.THROW = false;
+        keyboard.SHOOT = false;
     }
     if ( e.keyCode == 32){
         keyboard.SPACE = false;

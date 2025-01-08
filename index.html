@@ -4,10 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+    @font-face {
+        font-family: 'milky';
+        src: url(fonts/Story\ Milky.ttf) format('truetype'); 
+    }
+    h1 {
+    color: #d4f6ac;
+    text-shadow: 5px 4px 6px black;
+    }
+    body{
+        background-image: url(img/bg/big_background2.jpg);
+        background-position: center;
+        font-family: 'milky', Arial, Helvetica, sans-serif;
+    }
+    .instruction{
+        display: flex;
+        justify-content: space-between;
+        column-gap: 70px;
+        padding: 10px;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+    }
+    </style>
 </head>
 <body onload="init()">
     <h1>My Game</h1>
     <canvas id="canvas" width="720px" height="480px"></canvas>
+    <div class="instruction">
+        <div>
+        <h2>Move left: A</h2>
+        <h2>Move right: D</h2>
+        </div>
+        <div>
+        <h2>Jump: W</h2>
+        <h2>Shoot: E</h2>
+        </div>
+        
+        
+    </div>
     
 </body>
 <link rel="stylesheet" href="style.css">
@@ -20,6 +55,9 @@
 <script src="js/models/blue-slime.class.js"></script>
 <script src="js/models/ammo.class.js"></script>
 <script src="js/models/boss.class.js"></script>
+<script src="js/models/ammo.resource.class.js"></script>
+<script src="js/models/coins.class.js"></script>
+<script src="js/models/beer.class.js"></script>
 <script src="js/models/keyboard.class.js"></script>
 <script src="js/models/world.js"></script>
 <script src="js/models/level.class.js"></script>

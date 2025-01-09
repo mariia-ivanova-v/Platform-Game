@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'milky';
+    src: url(fonts/Story\ Milky.ttf) format('truetype'); 
+}
+h1 {
+color: #d4f6ac;
+text-shadow: 5px 4px 6px black;
+}
+body{
+    background-image: url(img/bg/big_background2.jpg);
+    background-position: center;
+    font-family: 'milky', Arial, Helvetica, sans-serif;
+}
+.instruction{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 70px;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+}
+canvas{
+    background-color: grey;
+    display: block;
+}
+
+@media only screen and (max-width:720px){
+    canvas {
+        width: 100%;
+    }
+}
+@media only screen and (max-height:480px){
+    canvas {
+       height: 100vh;
+    }
+    h1{
+        display: none;
+    }
+}

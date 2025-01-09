@@ -12,9 +12,19 @@ class MovableObject extends DrawableObject {
 
 
 
+    isCollidingBoss(boss){
+        let character_collision_x = this.x+80;
+        let character_collision_y = this.y+90;
+        let character_collision_width = this.width-180;
+        let character_collision_height = this.height-90;
 
-
-    isColliding(mo){
+        return character_collision_x + character_collision_width > boss.x &&
+        character_collision_y + character_collision_height > boss.y &&
+        character_collision_x > boss.x &&
+        character_collision_y < boss.y + boss.height;
+    }
+    
+    isUpColliding(mo){
         let mo_collision_x = mo.x;
         let mo_collision_y = mo.y;
         let mo_collision_height = mo.height;
@@ -36,11 +46,57 @@ class MovableObject extends DrawableObject {
             mo_collision_width = mo.width-110;
             mo_collision_height = mo.height-150;
         }
-    
+
+        return character_collision_y + character_collision_height < mo_collision_y +10 &&
+        character_collision_x + character_collision_width > mo_collision_x &&
+        character_collision_x < mo_collision_x;
+    }
+
+    isCollidingResource(mo){
+        let character_collision_x = this.x+80;
+        let character_collision_y = this.y+90;
+        let character_collision_width = this.width-180;
+        let character_collision_height = this.height-90;
+
+        return character_collision_x + character_collision_width > mo.x &&
+        character_collision_y + character_collision_height > mo.y &&
+        character_collision_x < mo.x &&
+        character_collision_y < mo.y + mo.height;
+    }
+
+        isColliding(mo){
+        let mo_collision_x = mo.x;
+        let mo_collision_y = mo.y;
+        let mo_collision_height = mo.height;
+        let mo_collision_width = mo.width;
+
+        let character_collision_x = this.x+80;
+        let character_collision_y = this.y+90;
+        let character_collision_width = this.width-180;
+        let character_collision_height = this.height-90;
+
+        if (mo instanceof GreenSlime){
+            mo_collision_x = mo.x+40;
+            mo_collision_y = mo.y+110;
+            mo_collision_width = mo.width-80;
+            mo_collision_height = mo.height-110;
+        }else if(mo instanceof BlueSlime){
+            mo_collision_x = mo.x+50;
+            mo_collision_y = mo.y+150;
+            mo_collision_width = mo.width-110;
+            mo_collision_height = mo.height-150;
+        }
         return character_collision_x + character_collision_width > mo_collision_x &&
         character_collision_y + character_collision_height > mo_collision_y &&
         character_collision_x < mo_collision_x &&
         character_collision_y < mo_collision_y + mo_collision_height;
+    }
+
+    isCollidingShoot(shoot){
+        return this.x + this.width > shoot.x && 
+        this.x + this.height > shoot.y &&
+        this.x < shoot.x && 
+        this.y < shoot.y + shoot.height;
     }
 
     hit(){
@@ -53,6 +109,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    heal(){
+        this.energy += 20;
+    }
+
     isHurt(){
         let timepassed = new Date().getTime()-this.lastHit;
         timepassed = timepassed / 1000;
@@ -63,6 +123,19 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
+    
+
+    
+
+   /* enemyKilled(enemy){
+        //enemy.dead = true;
+        let index = this.level.enemies.indexOf(enemy); // Найдём позицию врага
+        if (index > -1) {
+            this.level.enemies.splice(index, 1); // Удаляем врага
+            console.log('Enemy defeated:', enemy);
+        }
+    }*/
+
     applyGravity(){
         setInterval(()=> {
             if (this.isAbouveGround() || this.speedY>0){
@@ -71,6 +144,14 @@ class MovableObject extends DrawableObject {
             }
         }, 1000/25)
     }
+    //reactToCharacterPosition(character){}
+    /*
+    updateWorld(){
+        setInterval(()=>{
+            this.checkCharacterX();
+        },20)
+    }*/
+    
 
     /*atack(){
         return true;
@@ -100,14 +181,14 @@ class MovableObject extends DrawableObject {
             this.x -= this.speed;
             //this.updateCollisionBox();
         }, 1000/60)
+    }
+    playAnimation(images){
+        if(this.currentImage >= images.length){
+            this.currentImage = 0;
         }
-        playAnimation(images){
-            if(this.currentImage >= images.length){
-                this.currentImage = 0;
-            }
-            let path = images[this.currentImage];
-            this.img = this.imageCash[path];
-            this.currentImage++;
-        }
+        let path = images[this.currentImage];
+        this.img = this.imageCash[path];
+        this.currentImage++;
+    }
         
 }

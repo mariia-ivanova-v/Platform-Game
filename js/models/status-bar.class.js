@@ -23,7 +23,7 @@ class StatusBar extends DrawableObject{
 
     percentage = 100;
     coins_percentage = 0;
-    ammo_persentage = 0;
+    ammo_percentage = 0;
 
     constructor(){
         super();
@@ -44,17 +44,27 @@ class StatusBar extends DrawableObject{
         let path = this.HP_IMAGES[this.resolveImageIndex()];
         this.img= this.imageCash[path];     
     }
-
-    updateAmmo(ammount){
-        this.ammount = ammount;
-        let path = this.AMMO_IMAGES[this.resolveAmmoImageIndex()];
-        this.ammoImg = this.imageCash[path];
+    addHpPersentage(){
+        this.percentage = this.percentage + 20;
+        let path = this.HP_IMAGES[this.resolveImageIndex()];
+        this.img= this.imageCash[path]; 
     }
 
-    updateCoins(ammount){
-        this.ammount = ammount;
+    updateAmmo(){
+        this.ammo_percentage++;
+        let path = this.AMMO_IMAGES[this.resolveAmmoImageIndex()];
+        this.ammoImg = this.imageCash[path];
+        console.log(this.ammo_percentage)
+        return this.ammo_percentage;
+    }
+
+    updateCoins(){
+        this.coins_percentage ++;
         let path = this.COINS_IMAGES[this.resolveCoinsImageIndex()];
         this.coinsImg = this.imageCash[path];
+        console.log(this.coins_percentage)
+
+        return this.coins_percentage;
     }
 
     draw(ctx) {
@@ -80,7 +90,7 @@ class StatusBar extends DrawableObject{
     }
 
     resolveAmmoImageIndex(){
-        if(this.ammo_percentage == 8){
+        if(this.ammo_percentage >= 8){
             return 0;
         }else if(this.ammo_percentage >=6){
             return 1;
@@ -94,7 +104,7 @@ class StatusBar extends DrawableObject{
     }
 
     resolveCoinsImageIndex(){
-        if(this.coins_percentage == 8){
+        if(this.coins_percentage >= 8){
             return 0;
         }else if(this.coins_percentage >=6){
             return 1;
@@ -106,4 +116,17 @@ class StatusBar extends DrawableObject{
             return 4;
         }
     }
-}
+    checkAmmo(){
+        if(this.ammo_percentage > 0){
+            this.ammo_percentage--;
+            this.ammo_percentage--;
+            this.updateAmmo()
+            console.log(this.ammo_percentage)
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    
+};;

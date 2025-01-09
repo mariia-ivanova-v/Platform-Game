@@ -23,21 +23,33 @@ class DrawableObject{
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x+80, this.y+90, this.width-180,this.height-90);
         ctx.stroke();
-        }
-        if(this instanceof BlueSlime){
+        }else if(this instanceof BlueSlime){
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x+50, this.y+150, this.width-110,this.height-150);
         ctx.stroke();
-        }
-        if(this instanceof GreenSlime){
+        }else if(this instanceof GreenSlime){
         ctx.beginPath();
         ctx.lineWidth = '5';
         ctx.strokeStyle = 'blue';
         ctx.rect(this.x+40, this.y+110, this.width-80,this.height-110);
         ctx.stroke();
-    }}
+        }else if(this instanceof Boss){
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x+40, this.y+110, this.width-80,this.height-110);
+            ctx.stroke();
+        }else{
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width,this.height);
+            ctx.stroke();
+        }
+}
+
 
     loadImages(arr){
         arr.forEach((path) => {

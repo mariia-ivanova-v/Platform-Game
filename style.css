@@ -10,10 +10,17 @@ body{
     background-image: url(img/bg/big_background2.jpg);
     background-position: center;
     font-family: 'milky', Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
 .instruction{
+    width: 700px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     column-gap: 70px;
     padding: 10px;
     background-color: rgba(0,0,0,0.5);

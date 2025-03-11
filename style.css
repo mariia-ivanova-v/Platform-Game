@@ -3,8 +3,8 @@
     src: url(fonts/Story\ Milky.ttf) format('truetype'); 
 }
 h1 {
-color: #d4f6ac;
-text-shadow: 5px 4px 6px black;
+    color: #d4f6ac;
+    text-shadow: 5px 4px 6px black;
 }
 body{
     background-image: url(img/bg/big_background2.jpg);
@@ -29,6 +29,54 @@ body{
 canvas{
     background-color: grey;
     display: block;
+}
+.start-screen{
+    position: absolute;
+    background: url(/img/bg/StartGame.jpg);
+    width: 720px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+}
+.start-game{
+    cursor: pointer;
+    margin-top: 80px;
+}
+.start-game h1{
+    font-size: 36px;
+    background: red;
+    padding: 15px;
+    border-radius: 10px;
+}
+.end{
+    background-color: pink;
+    height: 480px;
+    width: 720px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.end h1{
+    padding: 15px;
+}
+.end h2{
+    cursor: pointer;
+    padding: 15px;
+    font-size: 36px;
+    margin-top: 90px;
+    color: #d4f6ac;
+    text-shadow: 5px 4px 6px black;
+    background: red;
+    border-radius: 10px;
+}
+.victory{
+    background: url(/img/bg/won-screen.jpg);
+}
+.lose{
+    background-image: url(/img/bg/lose-screen.jpg);
+}
+.d-none{
+    display: none;
 }
 
 @media only screen and (max-width:720px){

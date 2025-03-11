@@ -10,14 +10,15 @@
     <h1>Platform Game</h1>
     <div>
         <div class="start-screen" id="start-screen">
-            <!--
-            <button onclick="startGame()">Start Game</button>
-            -->
             <div class="start-game" onclick="startGame()">
                 <h1>Start Game</h1>
             </div>
         </div>
         <canvas id="canvas" width="720px" height="480px"></canvas>
+        <div class="end d-none" id="end-screen">
+            <h1 id="end-screen-h1"></h1>
+            <h2 onclick="reloadGame()">Back To Menu</h2>
+        </div>
     </div>
     <div class="instruction">
         <div>

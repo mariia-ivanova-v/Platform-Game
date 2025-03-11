@@ -1,3 +1,4 @@
+
 const level1 = new Level(
     [
         new GreenSlime(),
@@ -66,3 +67,4 @@ const level1 = new Level(
         new Beer('img/icons/beer.png')
     ]
 );
+

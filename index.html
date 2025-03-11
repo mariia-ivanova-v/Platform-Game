@@ -6,9 +6,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="init()">
-    <h1>My Game</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+<body>
+    <h1>Platform Game</h1>
+    <div>
+        <div class="start-screen" id="start-screen">
+            <!--
+            <button onclick="startGame()">Start Game</button>
+            -->
+            <div class="start-game" onclick="startGame()">
+                <h1>Start Game</h1>
+            </div>
+        </div>
+        <canvas id="canvas" width="720px" height="480px"></canvas>
+    </div>
     <div class="instruction">
         <div>
         <h2>Move left: A</h2>

@@ -78,6 +78,21 @@ canvas{
 .d-none{
     display: none;
 }
+.rotate-info{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(1rem);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 42px;
+}
 
 @media only screen and (max-width:720px){
     canvas {
@@ -91,4 +106,13 @@ canvas{
     h1{
         display: none;
     }
+}
+@media(max-width: 800px){
+    .rotate-info{
+        display: flex;
+    }
+    .start-screen, canvas, .end{
+        width: 95%;
+    }
+
 }

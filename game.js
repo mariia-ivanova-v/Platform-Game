@@ -3,15 +3,56 @@ let ctx;
 let keyboard = new Keyboard();
 
 
+
+
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    setInterval(checkBoss, 100);
+    setInterval(checkCharacter, 100);
 }
 
 function startGame(){
     const startScreen = document.getElementById('start-screen');
-    startScreen.style.display = "none";
+    startScreen.classList.add('d-none');
     init();
+}
+
+function reloadGame(){
+    location.reload()
+}
+
+function checkBoss(){
+    let bossParam = world.checkBoss();
+    if(bossParam){
+        setTimeout(() => {
+            endGame(true)
+        },700)
+    }
+}
+
+function checkCharacter(){
+    let characterParam = world.checkCharacter();
+    if(characterParam){
+        setTimeout(() => {
+            endGame(false)
+        },600)
+    }
+}
+
+function endGame(bool){
+    const endScreen = document.getElementById('end-screen');
+    const endScreenH1 = document.getElementById('end-screen-h1')
+    const canvas = document.getElementById('canvas');
+    if(bool){
+        endScreenH1.innerText = "Victory!"
+        endScreen.classList.add('victory');
+    }else{
+        endScreenH1.innerText = "You're dead..."
+        endScreen.classList.add('lose');
+    }
+    endScreen.classList.remove('d-none');
+    canvas.classList.add('d-none')
 }
 
 window.addEventListener('keydown', (e) =>{

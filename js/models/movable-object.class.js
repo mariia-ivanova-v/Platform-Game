@@ -103,7 +103,6 @@ class MovableObject extends DrawableObject {
         this.energy -= 10;
         if (this.energy <= 0){
             this.energy = 0;
-            console.log('Dead');
         } else{
             this.lastHit = new Date().getTime();
         }
@@ -123,19 +122,6 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    
-
-    
-
-   /* enemyKilled(enemy){
-        //enemy.dead = true;
-        let index = this.level.enemies.indexOf(enemy); // Найдём позицию врага
-        if (index > -1) {
-            this.level.enemies.splice(index, 1); // Удаляем врага
-            console.log('Enemy defeated:', enemy);
-        }
-    }*/
-
     applyGravity(){
         setInterval(()=> {
             if (this.isAbouveGround() || this.speedY>0){
@@ -144,26 +130,7 @@ class MovableObject extends DrawableObject {
             }
         }, 1000/25)
     }
-    //reactToCharacterPosition(character){}
-    /*
-    updateWorld(){
-        setInterval(()=>{
-            this.checkCharacterX();
-        },20)
-    }*/
     
-
-    /*atack(){
-        return true;
-    }*/
-   /*
-    updateCollisionBox() {
-            this.collision_x = this.x + 80;
-            this.collision_y = this.y + 90;
-            this.collision_width = this.width - 180;
-            this.collision_height = this.height - 90;
-    }*/
-
     isAbouveGround(){
         if(this instanceof AmmoShoot){
             return true;
@@ -174,7 +141,6 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         //this.updateCollisionBox();
-        console.log('moving right');
     }
     moveLeft(){
         setInterval(() => {

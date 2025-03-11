@@ -45,7 +45,6 @@ class GreenSlime extends MovableObject{
         }, 100)
         this.moveLeft();
         }else{
-            console.log('Slime is killed')
             this.playAnimation(this.IMAGES_DEAD);
             
         }

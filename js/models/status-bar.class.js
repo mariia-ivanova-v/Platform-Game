@@ -54,7 +54,6 @@ class StatusBar extends DrawableObject{
         this.ammo_percentage++;
         let path = this.AMMO_IMAGES[this.resolveAmmoImageIndex()];
         this.ammoImg = this.imageCash[path];
-        console.log(this.ammo_percentage)
         return this.ammo_percentage;
     }
 
@@ -62,7 +61,6 @@ class StatusBar extends DrawableObject{
         this.coins_percentage ++;
         let path = this.COINS_IMAGES[this.resolveCoinsImageIndex()];
         this.coinsImg = this.imageCash[path];
-        console.log(this.coins_percentage)
 
         return this.coins_percentage;
     }
@@ -121,7 +119,6 @@ class StatusBar extends DrawableObject{
             this.ammo_percentage--;
             this.ammo_percentage--;
             this.updateAmmo()
-            console.log(this.ammo_percentage)
             return true;
         }else{
             return false;

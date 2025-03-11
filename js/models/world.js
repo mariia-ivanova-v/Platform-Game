@@ -18,6 +18,20 @@ class World{
         this.setWorld();
         this.run();
     }
+    checkBoss(){
+        if(this.boss.dead){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    checkCharacter(){
+        if(this.character.dead){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     setWorld(){
         this.character.world = this;
@@ -158,7 +172,6 @@ class World{
     enemyKilled(enemy){
             setTimeout(() => {
         this.level.enemies = this.level.enemies.filter(e => e !== enemy);
-        console.log('Enemy killed:', enemy);
         }, 500); 
     
     }
@@ -166,8 +179,6 @@ class World{
         this.level.coins = this.level.coins.filter((coin) => coin !== resource);
         this.level.ammo = this.level.ammo.filter((ammo) => ammo !== resource);
         this.level.beer = this.level.beer.filter((beer) => beer !== resource);
-    
-        console.log('Resource collected:', resource);
     }
     
 }

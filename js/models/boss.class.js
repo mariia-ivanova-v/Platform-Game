@@ -108,12 +108,10 @@ dead = false;
     moveBossLeft(){
         this.x -= this.speed;
         this.otherDirection = true;
-        console.log('go left');
     }
     moveBossRight(){
         this.x += this.speed;
         this.otherDirection = false;
-        console.log('go right')
     }
 
     shooted(){
@@ -122,20 +120,4 @@ dead = false;
             this.dead = true;
         }
     }
-
-    
-/*
-    moveBossLeft(){
-        setInterval(() => {
-            this.x -= this.speed;
-            console.log('go left')
-        }, 1000/60)
-    }
-    returnToRight(){
-        setInterval(() => {
-            this.x += this.speed;
-            console.log('go right')
-        }, 1000/60)
-    }*/
-
 }

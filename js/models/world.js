@@ -32,6 +32,9 @@ class World{
             return false;
         }
     }
+    toogleSound(bool){
+        this.character.toogleSound(bool);
+    }
 
     setWorld(){
         this.character.world = this;

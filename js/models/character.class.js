@@ -150,5 +150,15 @@ class Character extends MovableObject{
 
     jump(){}
 
+    toogleSound(bool){
+        if(bool){
+            this.walking_sound.volume = 0;
+            this.jump_sound.volume = 0;
+        }else{
+            this.walking_sound.volume = 1
+            this.jump_sound.volume = 1
+        }
+    }
+
 
 }

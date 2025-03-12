@@ -21,11 +21,13 @@ function init(){
 function toggleSound(){
     const soundButton = document.getElementById('sound-button');
     if(musicOn){
+        world.toogleSound(true)
         soundButton.style.content = 'url(./img/icons/no-sound.png)'
         backgroundMusic.volume = 0;
         endMusic.volume = 0;
         musicOn = false
     }else{
+        world.toogleSound(false)
         soundButton.style.content = 'url(./img/icons/sound.png)'
         backgroundMusic.volume = 0.3;
         endMusic.volume = 0.3;
@@ -129,3 +131,18 @@ window.addEventListener('keyup', (e) =>{
         keyboard.SPACE = false;
     }
 })
+
+function mobileKeys(key, boolean){
+    if(key == RIGHT){
+        keyboard.RIGHT = boolean;
+    }
+    if(key == LEFT){
+        keyboard.LEFT = boolean;
+    }
+    if(key == UP){
+        keyboard.UP = boolean;
+    }
+    if(key == SHOOT){
+        keyboard.SHOOT = boolean;
+    }
+}

@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Forest Rush</title>
+    <link rel="shortcut icon" href="./img/slimes/blue/walk/tile003.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div onclick="closeInfo()" class="background" id="background"></div>
     <div class="rotate-info">
         <p>Rotate to play</p>
     </div>
     <h1>Platform Game</h1>
-    <div>
+    <div class="game-div">
         <div class="start-screen" id="start-screen">
             <div class="start-game" onclick="startGame()">
                 <h1>Start Game</h1>
             </div>
+        </div>
+        <img class="info" onclick="openInfo()" src="./img/icons/info.png" alt="">
+        <img id="sound-button" onclick="toggleSound()" src="./img/icons/sound.png" alt="">
+        <div id="game-info" class="game-info">
+            <p>You're a seasoned bandit on a high-stakes job. No cursed forest or bloodthirsty beasts will stand in your way. Fight through the wilderness, grab bullets for your trusty gun, chug beer to keep going, and collect coins—because cash is always king. The forest is against you? Make it regret that.</p>
         </div>
         <canvas id="canvas" width="720px" height="480px"></canvas>
         <div class="end d-none" id="end-screen">

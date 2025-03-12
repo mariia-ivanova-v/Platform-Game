@@ -2,6 +2,9 @@
     font-family: 'milky';
     src: url(fonts/Story\ Milky.ttf) format('truetype'); 
 }
+#sound-button{
+    z-index: 50;
+}
 h1 {
     color: #d4f6ac;
     text-shadow: 5px 4px 6px black;
@@ -37,6 +40,7 @@ canvas{
     height: 480px;
     display: flex;
     justify-content: center;
+    z-index: 50;
 }
 .start-game{
     cursor: pointer;
@@ -95,7 +99,9 @@ canvas{
 }
 .game-div{
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
 }
 img{
     display: none;
@@ -135,6 +141,41 @@ img{
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.3);
+}
+.mob-buttons{
+    display: none !important;
+    position: absolute;
+    width: 750px;
+    height: 450px;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    z-index: 40;
+}
+
+.mob-buttons img{
+    display: flex;
+    margin: 0;
+    position: static;
+}
+.left{
+    transform: rotate(270deg);
+}
+.right{
+    transform: rotate(90deg);
+}
+.space{
+    background-color: #d4f6ac;
+    width: 400px;
+    text-align: center;
+    margin: 0;
+    padding: 11px;
+}
+.mob-shoot{
+    display: none !important;
+    width: 720px;
+    height: 480px;
+    position: absolute;
 }
 
 @media only screen and (max-width:720px){

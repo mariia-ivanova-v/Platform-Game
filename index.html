@@ -19,6 +19,12 @@
                 <h1>Start Game</h1>
             </div>
         </div>
+        <div id="mob-buttons" class="mob-buttons">
+            <img ontouchstart="mobileKeys(LEFT, true)" id="left" class="left" src="./img/icons/arrow.png" alt="">
+            <p ontouchstart="mobileKeys(UP, true)" id="jump" class="space">JUMP</p>
+            <img ontouchstart="mobileKeys(RIGHT, true)" id="right" class="right" src="./img/icons/arrow.png" alt="">
+        </div>
+        <div ontouchstart="mobileKeys(SHOOT, true)" id="shoot" class="mob-shoot"></div>
         <img class="info" onclick="openInfo()" src="./img/icons/info.png" alt="">
         <img id="sound-button" onclick="toggleSound()" src="./img/icons/sound.png" alt="">
         <div id="game-info" class="game-info">

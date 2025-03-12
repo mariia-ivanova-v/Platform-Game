@@ -1,6 +1,13 @@
 let canvas;
 let ctx;
 let keyboard = new Keyboard();
+let musicOn = true;
+let backgroundMusic = new Audio('./sounds/ni_idea.wav');
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.5;
+let endMusic = new Audio('./sounds/main.wav');
+endMusic.loop = true;
+endMusic.volume = 0.4;
 
 
 
@@ -11,10 +18,40 @@ function init(){
     setInterval(checkBoss, 100);
     setInterval(checkCharacter, 100);
 }
+function toggleSound(){
+    const soundButton = document.getElementById('sound-button');
+    if(musicOn){
+        soundButton.style.content = 'url(./img/icons/no-sound.png)'
+        backgroundMusic.volume = 0;
+        endMusic.volume = 0;
+        musicOn = false
+    }else{
+        soundButton.style.content = 'url(./img/icons/sound.png)'
+        backgroundMusic.volume = 0.3;
+        endMusic.volume = 0.3;
+        musicOn = true;
+    }
+}
+
+function openInfo(){
+    const gameInfo = document.getElementById('game-info');
+    const backgroundMain = document.getElementById('background');
+    gameInfo.style.display = 'block';
+    backgroundMain.style.display = 'block';
+}
+function closeInfo(){
+    const gameInfo = document.getElementById('game-info');
+    const backgroundMain = document.getElementById('background');
+    gameInfo.style.display = 'none';
+    backgroundMain.style.display = 'none';
+}
 
 function startGame(){
     const startScreen = document.getElementById('start-screen');
+    const soundButton = document.getElementById('sound-button');
     startScreen.classList.add('d-none');
+    soundButton.style.display = 'flex';
+    backgroundMusic.play();
     init();
 }
 
@@ -44,6 +81,8 @@ function endGame(bool){
     const endScreen = document.getElementById('end-screen');
     const endScreenH1 = document.getElementById('end-screen-h1')
     const canvas = document.getElementById('canvas');
+    backgroundMusic.pause();
+    endMusic.play();
     if(bool){
         endScreenH1.innerText = "Victory!"
         endScreen.classList.add('victory');

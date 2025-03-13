@@ -80,7 +80,7 @@ canvas{
     background-image: url(./img/bg/lose-screen.jpg);
 }
 .d-none{
-    display: none;
+    display: none !important;
 }
 .rotate-info{
     position: absolute;
@@ -102,6 +102,8 @@ canvas{
     flex-direction: column;
     align-items: end;
     justify-content: space-between;
+    width: 720px;
+    height: 480px;
 }
 img{
     display: none;
@@ -143,10 +145,10 @@ img{
     background-color: rgba(0,0,0,0.3);
 }
 .mob-buttons{
-    display: none !important;
+    display: none;
     position: absolute;
-    width: 750px;
-    height: 450px;
+    width: 720px;
+    height: 380px;
     display: flex;
     justify-content: space-around;
     align-items: end;
@@ -160,6 +162,7 @@ img{
 }
 .left{
     transform: rotate(270deg);
+    margin-left: 20px;
 }
 .right{
     transform: rotate(90deg);
@@ -172,34 +175,44 @@ img{
     padding: 11px;
 }
 .mob-shoot{
-    display: none !important;
+    display: none;
     width: 720px;
     height: 480px;
     position: absolute;
 }
+canvas{
+    width: 100% !important;
+}
 
 @media only screen and (max-width:720px){
-    canvas {
+    canvas, .start-game, .end{
         width: 100%;
+    }
+    .mob-shoot, .mob-buttons{
+        display: flex;
     }
 }
 @media only screen and (max-height:480px){
-    canvas {
+    canvas, .start-game, .end{
        height: 100vh;
     }
-    h1{
+    .title{
         display: none;
     }
-}
-@media(max-width: 800px){
+    .instruction{
+        display: none;
+    }
+    .mob-shoot, .mob-buttons{
+        display: flex;
+    }
+} 
+@media(max-width: 720px){
     body{
         overflow: hidden;
     }
     .rotate-info{
-        display: flex;
+        display: none;
     }
-    .start-screen, canvas, .end{
-        width: 95%;
-    }
-
 }
+/*620
+585*/

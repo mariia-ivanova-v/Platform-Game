@@ -83,6 +83,8 @@ function endGame(bool){
     const endScreen = document.getElementById('end-screen');
     const endScreenH1 = document.getElementById('end-screen-h1')
     const canvas = document.getElementById('canvas');
+    document.getElementById('mob-buttons').classList.add('d-none');
+    document.getElementById('shoot').classList.add('d-none');
     backgroundMusic.pause();
     endMusic.play();
     if(bool){
@@ -133,16 +135,16 @@ window.addEventListener('keyup', (e) =>{
 })
 
 function mobileKeys(key, boolean){
-    if(key == RIGHT){
+    if(key == 'RIGHT'){
         keyboard.RIGHT = boolean;
     }
-    if(key == LEFT){
+    if(key == 'LEFT'){
         keyboard.LEFT = boolean;
     }
-    if(key == UP){
+    if(key == 'UP'){
         keyboard.UP = boolean;
     }
-    if(key == SHOOT){
+    if(key == 'SHOOT'){
         keyboard.SHOOT = boolean;
     }
 }

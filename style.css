@@ -40,7 +40,7 @@ canvas{
     height: 480px;
     display: flex;
     justify-content: center;
-    z-index: 50;
+    z-index: 60;
 }
 .start-game{
     cursor: pointer;
@@ -177,8 +177,9 @@ img{
 .mob-shoot{
     display: none;
     width: 720px;
-    height: 480px;
+    height: 340px;
     position: absolute;
+    z-index: 50;
 }
 canvas{
     width: 100% !important;

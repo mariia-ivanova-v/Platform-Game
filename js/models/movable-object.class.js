@@ -139,15 +139,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    moveRight() {
-        //this.updateCollisionBox();
-    }
     moveLeft(){
         setInterval(() => {
             this.x -= this.speed;
-            //this.updateCollisionBox();
         }, 1000/60)
     }
+    
     playAnimation(images){
         if(this.currentImage >= images.length){
             this.currentImage = 0;

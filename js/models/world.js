@@ -7,7 +7,9 @@ class World{
     keyboard;
     camera_x = -100;
     statusBar = new StatusBar();
+    bossHP = new BossStatus();
     ammoShoot = []
+    noticed = false;
 
 
     constructor(canvas, keyboard){
@@ -18,6 +20,7 @@ class World{
         this.setWorld();
         this.run();
     }
+
     checkBoss(){
         if(this.boss.dead){
             return true;
@@ -54,6 +57,8 @@ class World{
 
         if(boss_x>character_x && boss_x-character_x < 500){
             this.boss.noticeCharacter();
+            this.addToMap(this.bossHP);
+            this.noticed = true;
         }
         this.boss.characterX = character_x;
         if(boss_x==character_x || boss_x - character_x <60 && boss_x > character_x ||character_x > boss_x && character_x - boss_x < 60){
@@ -81,6 +86,7 @@ class World{
         this.ammoShoot = this.ammoShoot.filter((shoot) => {
             if (this.boss.isCollidingShoot(shoot)) {
                 this.boss.shooted();
+                this.bossHP.decreaseHp();
                 return false;
             }
             return true; 
@@ -124,6 +130,9 @@ class World{
         this.addToMap(this.boss);
         this.ctx.translate(-this.camera_x,0);
         this.addToMap(this.statusBar);
+        if(this.noticed){
+            this.addToMap(this.bossHP);
+        }
         
         this.ctx.translate(this.camera_x,0);
         this.addToMap(this.character);

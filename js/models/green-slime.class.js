@@ -23,7 +23,6 @@ class GreenSlime extends MovableObject{
         'img/slimes/green/atack/tile003.png'
     ]
     dead = false;
-    //ctx.rect(this.x+40, this.y+110, this.width-80,this.height-110);
 
     constructor(){
         super().loadImage('img/slimes/green/idle/tile000.png');
@@ -45,15 +44,8 @@ class GreenSlime extends MovableObject{
         }, 100)
         this.moveLeft();
         }else{
-            this.playAnimation(this.IMAGES_DEAD);
-            
-        }
-        //this.updateCollisionBox()
-/*
-            if(this.isHurt){
-            this.playAnimation(this.IMAGES_ATACK);
-            }*/
-        
+            this.playAnimation(this.IMAGES_DEAD);  
+        }        
     }
     die(){
         this.dead = true;

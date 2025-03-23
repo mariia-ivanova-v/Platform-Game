@@ -1,15 +1,18 @@
 let canvas;
 let ctx;
 let keyboard = new Keyboard();
-let musicOn = true;
+//let musicOn = true;
+let musicOn = localStorage.getItem('musicOn') !== 'false';
 let backgroundMusic = new Audio('./sounds/ni_idea.wav');
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.5;
+//backgroundMusic.volume = 0.5;
+backgroundMusic.volume = musicOn ? 0.5 : 0;
 let endMusic = new Audio('./sounds/main.wav');
 endMusic.loop = true;
 endMusic.volume = 0.4;
 let intervalIds = [];
 const originalSetInterval = window.setInterval;
+
 
 
 
@@ -23,6 +26,7 @@ function init(){
     setInterval(checkBoss, 100);
     setInterval(checkCharacter, 100);
 }
+
 
 function createWorld(){
     world = '';
@@ -41,20 +45,30 @@ function stopAllIntervals() {
     intervalIds = [];
 }
 
-function toggleSound(){
-    const soundButton = document.getElementById('sound-button');
+function toggleSound(){    
     if(musicOn){
-        world.toogleSound(true)
-        soundButton.style.content = 'url(./img/icons/no-sound.png)'
+        world.toggleSound(true);
         backgroundMusic.volume = 0;
         endMusic.volume = 0;
         musicOn = false
+        
     }else{
-        world.toogleSound(false)
-        soundButton.style.content = 'url(./img/icons/sound.png)'
+        world.toggleSound(false);
         backgroundMusic.volume = 0.3;
         endMusic.volume = 0.3;
         musicOn = true;
+        backgroundMusic.play()
+    }
+    changeSoundButton()
+    localStorage.setItem('musicOn', musicOn);
+    
+}
+function changeSoundButton(){
+    const soundButton = document.getElementById('sound-button');
+    if(musicOn){
+        soundButton.style.content = 'url(./img/icons/sound.png)'
+    }else{
+        soundButton.style.content = 'url(./img/icons/no-sound.png)'
     }
 }
 
@@ -87,9 +101,19 @@ function startGame(){
     soundButton.style.display = 'flex';
     canvas.classList.remove('d-none')
     endScreen.classList.add('d-none')
-    backgroundMusic.play();
+    //backgroundMusic.play();
     init();
+    
+    if(musicOn){
+        backgroundMusic.play();
+        world.toggleSound(false);
+    }else{
+        world.toggleSound(true)
+    }
+    changeSoundButton()
 }
+
+
 function hideButtons(){
     const infoButton = document.getElementById('inform');
     const controlButton = document.getElementById('control');

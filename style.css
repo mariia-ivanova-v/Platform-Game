@@ -66,12 +66,17 @@ canvas{
 .end h2{
     cursor: pointer;
     padding: 15px;
-    font-size: 36px;
-    margin-top: 90px;
+    font-size: 30px;
+    margin-top: 70px;
     color: #d4f6ac;
     text-shadow: 5px 4px 6px black;
     background: red;
     border-radius: 10px;
+    text-align: center;
+}
+.end div{
+    display: flex;
+    gap: 30px;
 }
 .victory{
     background: url(./img/bg/won-screen.jpg);
@@ -120,6 +125,31 @@ img{
     display: block;
     height: 30px !important;
     padding: 5px;
+    z-index: 90;
+}
+.control{
+    display: none;
+    height: 30px !important;
+    padding: 5px;
+    margin-top: 90px;
+    z-index: 90;
+}
+.control-info{
+    display: none;
+    position: absolute;
+    background-image: url(./img/game-photo-control.jpg);
+    z-index: 100;
+    width: 650px;
+    height: 360px;
+    margin: 35px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px black;
+}
+.control-info h2{
+    color: white;
+    padding-bottom: 60px;
 }
 .game-info{
     display: none;
@@ -139,7 +169,7 @@ img{
 .background{
     display: none;
     position: absolute;
-    z-index: 90;
+    z-index: 100;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.3);
@@ -149,7 +179,6 @@ img{
     position: absolute;
     width: 720px;
     height: 380px;
-    display: flex;
     justify-content: space-around;
     align-items: end;
     z-index: 40;
@@ -186,6 +215,9 @@ canvas{
 }
 
 @media only screen and (max-width:720px){
+    .control{
+        display: block;
+    }
     canvas, .start-game, .end{
         width: 100%;
     }
@@ -194,6 +226,9 @@ canvas{
     }
 }
 @media only screen and (max-height:480px){
+    .control{
+        display: block;
+    }
     canvas, .start-game, .end{
        height: 100vh;
     }
@@ -212,7 +247,7 @@ canvas{
         overflow: hidden;
     }
     .rotate-info{
-        display: none;
+        display: flex;
     }
 }
 /*620

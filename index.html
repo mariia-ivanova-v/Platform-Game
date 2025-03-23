@@ -27,15 +27,22 @@
         </div>
         <div ontouchstart="mobileKeys('SHOOT', true)" ontouchend="mobileKeys('SHOOT', false)" id="shoot" class="mob-shoot"></div>
 
-        <img class="info" onclick="openInfo()" src="./img/icons/info.png" alt="">
+        <img id="inform" class="info" onclick="openInfo('game-info')" src="./img/icons/info.png" alt="">
+        <img id="control" class="control" onclick="openInfo('control-info')" src="./img/icons/gamepad.png" alt="">
         <img id="sound-button" onclick="toggleSound()" src="./img/icons/sound.png" alt="">
         <div id="game-info" class="game-info">
             <p>You're a seasoned bandit on a high-stakes job. No cursed forest or bloodthirsty beasts will stand in your way. Fight through the wilderness, grab bullets for your trusty gun, chug beer to keep going, and collect coins—because cash is always king. The forest is against you? Make it regret that.</p>
         </div>
+        <div id="control-info" class="control-info">
+            <h2>Click here to shoot</h2>
+        </div>
         <canvas id="canvas" width="720px" height="480px"></canvas>
         <div class="end d-none" id="end-screen">
             <h1 id="end-screen-h1"></h1>
-            <h2 onclick="reloadGame()">Back To Menu</h2>
+            <div>
+                <h2 onclick="reloadGame()">Back To Menu</h2>
+                <h2 onclick="startGame()">Play Again</h2>
+            </div>
         </div>
     </div>
     <div class="instruction">
@@ -55,6 +62,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="js/models/drawable-object.class.js"></script>
 <script src="js/models/status-bar.class.js"></script>
+<script src="js/models/boss-hp.js"></script>
 <script src="js/models/movable-object.class.js"></script>
 <script src="js/models/background.class.js"></script>
 <script src="js/models/character.class.js"></script>

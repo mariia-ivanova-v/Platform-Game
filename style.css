@@ -238,6 +238,9 @@ a{
     body{
         overflow: hidden;
     }
+    .start-screen{
+        height: auto;
+    }
     .control{
         display: block;
     }
@@ -249,10 +252,16 @@ a{
     .start-game h1{
         width: 230px;
     }
+    footer{
+        display: none;
+    }
 }
 @media only screen and (max-height:480px){
     body{
         overflow: hidden;
+    }
+    .start-screen{
+        height: auto;
     }
     .control{
         display: block;
@@ -269,6 +278,9 @@ a{
         display: none;
     }
     .instruction{
+        display: none;
+    }
+    footer{
         display: none;
     }
 } 

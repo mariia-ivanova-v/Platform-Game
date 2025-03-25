@@ -1,4 +1,4 @@
-class GreenSlime extends MovableObject{
+class GreenSlime extends MovableObject {
     IMAGES_WALKING = [
         'img/slimes/green/walk/tile000.png',
         'img/slimes/green/walk/tile001.png',
@@ -24,7 +24,7 @@ class GreenSlime extends MovableObject{
     ]
     dead = false;
 
-    constructor(){
+    constructor() {
         super().loadImage('img/slimes/green/idle/tile000.png');
         this.loadImages(this.IMAGES_ATACK);
         this.loadImages(this.IMAGES_DEAD);
@@ -32,25 +32,24 @@ class GreenSlime extends MovableObject{
         this.height = 150;
         this.y = 205;
 
-        this.x = 200 + Math.random()*500;
+        this.x = 200 + Math.random() * 500;
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
     }
 
-    animate(){
-        if(!this.dead){
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 100)
-        this.moveLeft();
-        }else{
-            this.playAnimation(this.IMAGES_DEAD);  
-        }        
+    /**
+     * animates all slime's moovements
+     */
+    animate() {
+        if (!this.dead) {
+            setInterval(() => {
+                this.playAnimation(this.IMAGES_WALKING);
+            }, 100)
+            this.moveLeft();
+        } else {
+            this.playAnimation(this.IMAGES_DEAD);
+        }
     }
-    die(){
-        this.dead = true;
-        this.playAnimation(this.IMAGES_DEAD);
-    }
-    
+
 
 }

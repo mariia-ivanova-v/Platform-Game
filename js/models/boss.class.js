@@ -1,14 +1,14 @@
-class Boss extends MovableObject{
-height = 400;
-width = 300;
-y = -45;
-noticed = false;
-speed = 6;
-mycharacter;
-characterX;
-hp = 100;
-atacking = false;
-dead = false;
+class Boss extends MovableObject {
+    height = 400;
+    width = 300;
+    y = -45;
+    noticed = false;
+    speed = 6;
+    mycharacter;
+    characterX;
+    hp = 100;
+    atacking = false;
+    dead = false;
 
 
     IMAGES_IDLE = [
@@ -57,9 +57,9 @@ dead = false;
         "img/wolf/walk/tile008.png",
         "img/wolf/walk/tile009.png",
         "img/wolf/walk/tile010.png"
-        
+
     ];
-    constructor(){
+    constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
@@ -71,52 +71,77 @@ dead = false;
         this.otherDirection = true;
     }
 
-    animate(){
+    /**
+     * animates boss movements
+     */
+    animate() {
         setInterval(() => {
-            if(this.dead == true){
+            if (this.dead == true) {
                 this.playAnimation(this.IMAGES_DEAD);
-            }else if(this.noticed == false){
-            this.playAnimation(this.IMAGES_IDLE);
-            }else if(this.atacking == false){
+            } else if (this.noticed == false) {
+                this.playAnimation(this.IMAGES_IDLE);
+            } else if (this.atacking == false) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.walking();
-            }else{
+            } else {
                 this.playAnimation(this.IMAGES_ATACK);
             }
         }, 100)
     }
 
-    startAtacking(){
+    /**
+     * set atack parameter true
+     */
+    startAtacking() {
         this.atacking = true;
     }
-    stopAtacking(){
+    /**
+     * set atack parameter false
+     */
+    stopAtacking() {
         this.atacking = false;
     }
 
-    noticeCharacter(){
+    /**
+     * changed parameter noticed
+     */
+    noticeCharacter() {
         this.noticed = true;
     }
 
-    walking(){{
-            if(this.characterX < this.x && this.x - this.characterX > 60){
+    /**
+     * moves boss
+     */
+    walking() {
+        {
+            if (this.characterX < this.x && this.x - this.characterX > 60) {
                 this.moveBossLeft();
-            }else if(this.x < this.characterX && this.characterX - this.x > 60){
+            } else if (this.x < this.characterX && this.characterX - this.x > 60) {
                 this.moveBossRight();
             }
         }
     }
-    moveBossLeft(){
+    /**
+     * moves boss left
+     */
+    moveBossLeft() {
         this.x -= this.speed;
         this.otherDirection = true;
     }
-    moveBossRight(){
+    /**
+     * moves boss right
+     */
+    moveBossRight() {
         this.x += this.speed;
         this.otherDirection = false;
     }
 
-    shooted(){
+    /**
+     * decreases boss's hp when it is hurt
+     */
+    shooted() {
         this.hp = this.hp - 15;
-        if(this.hp <= 0){
+        if (this.hp <= 0) {
             this.dead = true;
         }
     }

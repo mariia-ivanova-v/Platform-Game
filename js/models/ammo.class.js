@@ -13,6 +13,10 @@ class AmmoShoot extends MovableObject{
         
     }
 
+    /**
+     * Initiates the shooting action by applying vertical speed and gravity,
+     * then moves the projectile horizontally at a constant speed.
+     */
     shoot(){
         this.speedY = 10;
         this.applyGravity();

@@ -1,4 +1,4 @@
-class Character extends MovableObject{
+class Character extends MovableObject {
     IMAGES_JUMPING = [
         'img/gangster/jump/tile000.png',
         'img/gangster/jump/tile001.png',
@@ -11,7 +11,7 @@ class Character extends MovableObject{
         'img/gangster/jump/tile008.png',
         'img/gangster/jump/tile009.png'
     ];
-    
+
     IMAGES_WALKING = [
         'img/gangster/walk/tile000.png',
         'img/gangster/walk/tile001.png',
@@ -64,10 +64,10 @@ class Character extends MovableObject{
         'img/gangster/idle/tile004.png',
         'img/gangster/idle/tile004.png',
         'img/gangster/idle/tile004.png',
-        'img/gangster/idle/tile005.png',      
-        'img/gangster/idle/tile005.png',        
         'img/gangster/idle/tile005.png',
-        'img/gangster/idle/tile006.png',        
+        'img/gangster/idle/tile005.png',
+        'img/gangster/idle/tile005.png',
+        'img/gangster/idle/tile006.png',
         'img/gangster/idle/tile006.png',
         'img/gangster/idle/tile006.png',
         'img/gangster/idle/tile007.png',
@@ -83,78 +83,114 @@ class Character extends MovableObject{
         'img/gangster/idle/tile010.png',
         'img/gangster/idle/tile010.png'
     ];
+
+    IMAGES_SHOOT = [
+        'img/gangster/shot/tile000.png',
+        'img/gangster/shot/tile001.png',
+        'img/gangster/shot/tile002.png',
+        'img/gangster/shot/tile003.png'
+    ]
     world;
     speed = 0.45;
     x = -20;
     y = 39;
     walking_sound = new Audio('sounds/walking.wav');
     jump_sound = new Audio('sounds/jump.wav');
-    character_collision_x = this.x+80;
-    character_collision_y = this.y+90;
+    character_collision_x = this.x + 80;
+    character_collision_y = this.y + 90;
     dead = false;
-    
+    hasAmmo;
 
-    constructor(){
+
+    constructor() {
         super().loadImage('img/gangster/idle/tile000.png');
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_SHOOT)
         this.applyGravity();
         this.animate();
 
     }
 
-    animate(){
-
-        setInterval(() =>{
-            if(this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x){
+    /**
+     * animates everything
+     */
+    animate() {
+        this.walk()
+        this.animateAll();
+    }
+    /**
+     * checks if character moves
+     */
+    walk() {
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if(this.world.keyboard.LEFT && this.x > -719){
+            if (this.world.keyboard.LEFT && this.x > -719) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
-            if(this.world.keyboard.UP && !this.isAbouveGround()){
+            if (this.world.keyboard.UP && !this.isAbouveGround()) {
                 this.speedY = 15;
             }
             this.world.camera_x = -this.x;
-        }, 1000/500);
+        }, 1000 / 500);
+    }
 
+    /**
+     * animates the character depending on its condition
+     */
+    animateAll() {
         setInterval(() => {
             this.walking_sound.pause();
             this.jump_sound.pause();
-            if(this.isDead()){
+            if (this.isDead()) {
                 this.dead = true;
                 this.playAnimation(this.IMAGES_DEAD);
-            }else if(this.isHurt()){
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
-            else{
-            if(this.isAbouveGround()){
-                this.playAnimation(this.IMAGES_JUMPING);
-                this.jump_sound.play();
-            }else{
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                    this.playAnimation(this.IMAGES_WALKING);
-                    this.walking_sound.play();
-
-                }else{
-                        this.playAnimation(this.IMAGES_IDLE);
-                }
-            }}
+            else {
+                this.animateAlive();
+            }
         }, 100)
     }
+    /**
+     * animats the character if it's still alive
+     */
+    animateAlive() {
+        if (this.isAbouveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+            this.jump_sound.play();
+        }else if(this.world.keyboard.SHOOT && this.hasAmmo){
+            this.playAnimation(this.IMAGES_SHOOT);
+        }else {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_WALKING);
+                this.walking_sound.play();
 
-    jump(){}
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+        }
+    }
 
-    toogleSound(bool){
-        if(bool){
+    jump() { }
+
+    /**
+     * turns character's sounds on or off
+     * @param {boolean} bool - is music on or off
+     */
+    toggleSound(bool) {
+        if (bool) {
             this.walking_sound.volume = 0;
             this.jump_sound.volume = 0;
-        }else{
+        } else {
             this.walking_sound.volume = 1
             this.jump_sound.volume = 1
         }

@@ -21,6 +21,10 @@ class World{
         this.run();
     }
 
+    /**
+     * checks if boss is dead
+     * @returns true or false
+     */
     checkBoss(){
         if(this.boss.dead){
             return true;
@@ -28,6 +32,10 @@ class World{
             return false;
         }
     }
+    /**
+     * checks if character is dead
+     * @returns true or false
+     */
     checkCharacter(){
         if(this.character.dead){
             return true;
@@ -35,14 +43,24 @@ class World{
             return false;
         }
     }
-    toogleSound(bool){
-        this.character.toogleSound(bool);
+    /**
+     * changes sound depending on boolean
+     * @param {boolean} bool - tells what to do with sound (turn on or off)
+     */
+    toggleSound(bool){
+        this.character.toggleSound(bool);
     }
 
+    /**
+     * sets world
+     */
     setWorld(){
         this.character.world = this;
     }
 
+    /**
+     * run function
+     */
     run(){
         setInterval(()=> {
             this.checkCollisions();
@@ -51,6 +69,9 @@ class World{
         }, 300)
     }
 
+    /**
+     * checks character position so that the boss can notice him
+     */
     checkCharacterX(){
         let character_x = this.character.x;
         let boss_x = this.boss.x;
@@ -67,17 +88,28 @@ class World{
             this.boss.stopAtacking();
         }
     }
-//shoot
+/**
+ * checks if player has ammo and let him shoot
+ */
     checkShootAmmo(){
         if(this.keyboard.SHOOT){
             let ammoAmmount = this.statusBar.checkAmmo();
             if(ammoAmmount){
-            let ammo = new AmmoShoot(this.character.x+150, this.character.y+110);
-            this.ammoShoot.push(ammo);
+                this.character.hasAmmo = true;
+                setTimeout(() => {
+                    let ammo = new AmmoShoot(this.character.x+200, this.character.y+110);
+                    this.ammoShoot.push(ammo);  
+                }, 300);
+                
+            }else{
+                this.character.hasAmmo = false;
             }
         }
     }
 
+    /**
+     * checks collision with everything
+     */
     checkCollisions(){
         if(this.character.isCollidingBoss(this.boss)){
             this.character.hit();
@@ -122,6 +154,9 @@ class World{
         })
     }
 
+    /**
+     * draws everything in current level
+     */
     draw(){
         this.ctx.clearRect(0,0,this.character.width, this.character.height);
         this.ctx.translate(this.camera_x,0);
@@ -152,12 +187,20 @@ class World{
         })
     }
 
+    /**
+     * renders every object on the map
+     * @param objects - current object that shood be drawn (character, enemy, ammo and ets.)
+     */
     addObjectsToMap(objects){
         objects.forEach(o => {
             this.addToMap(o);
             })
     }
 
+    /**
+     * draws current object
+     * @param {object} mo - current object that is drawing
+     */
     addToMap(mo){
         if(mo.otherDirection){
             this.flipImage(mo);
@@ -169,6 +212,10 @@ class World{
         
     }
 
+    /**
+     * changes object's x 
+     * @param {object} mo - current object
+     */
     flipImage(mo){
         this.ctx.save();
             this.ctx.translate(mo.width, 0);
@@ -176,17 +223,29 @@ class World{
             mo.x = mo.x * -1;
     }
 
+    /**
+     * changes object's x wenn it's rotated
+     * @param {object} mo 
+     */
     flipImageBack(mo){
         mo.x = mo.x * -1;
             this.ctx.restore();
     }
 
+    /**
+     * takes dead enemy away
+     * @param {object} enemy - current enemy that is dead
+     */
     enemyKilled(enemy){
             setTimeout(() => {
         this.level.enemies = this.level.enemies.filter(e => e !== enemy);
         }, 500); 
     
     }
+    /**
+     * restores all resources
+     * @param {Object} resource 
+     */
     restoreResource(resource) {
         this.level.coins = this.level.coins.filter((coin) => coin !== resource);
         this.level.ammo = this.level.ammo.filter((ammo) => ammo !== resource);

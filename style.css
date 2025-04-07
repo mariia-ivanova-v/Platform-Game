@@ -207,7 +207,7 @@ img{
 .mob-shoot{
     display: none;
     width: 720px;
-    height: 400px;
+    height: 80%;
     position: absolute;
     z-index: 50;
 }
@@ -221,6 +221,9 @@ footer{
     font-size: 26px;
 }
 a{
+    background: grey;
+    padding: 7px;
+    border-radius: 10px;
     text-decoration: none;
     color: #d4f6ac;
 }

@@ -30,36 +30,83 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * checks if player collides slimes up
+     * checks if player collides slimes from above
      * @param mo - enemy that collides player 
      * @returns all up collidings
      */
     isUpColliding(mo) {
-        let mo_collision_x = mo.x;
-        let mo_collision_y = mo.y;
-        let mo_collision_height = mo.height;
-        let mo_collision_width = mo.width;
+        let moBounds = this.getObjectBounds(mo);
+        let characterBounds = this.getCharacterBounds();
+        
+        return this.isUpCollisionDetected(characterBounds, moBounds);
+    }
 
-        let character_collision_x = this.x + 90;
-        let character_collision_y = this.y + 90;
-        let character_collision_width = this.width - 200;
-        let character_collision_height = this.height - 90;
-
+    /**
+    * gets the bounds of the enemy object
+    * @param {MovableObject} mo - enemy object
+    * @returns object with coordinates and dimensions of the enemy
+    */
+    getObjectBounds(mo) {
         if (mo instanceof GreenSlime) {
-            mo_collision_x = mo.x + 40;
-            mo_collision_y = mo.y + 120;
-            mo_collision_width = mo.width - 90;
-            mo_collision_height = mo.height - 120;
+            return this.getGreenSlimeBounds(mo);
         } else if (mo instanceof BlueSlime) {
-            mo_collision_x = mo.x + 60;
-            mo_collision_y = mo.y + 160;
-            mo_collision_width = mo.width - 130;
-            mo_collision_height = mo.height - 160;
+            return this.getBlueSlimeBounds(mo);
         }
 
-        return character_collision_y + character_collision_height < mo_collision_y + 10 &&
-            character_collision_x + character_collision_width > mo_collision_x &&
-            character_collision_x < mo_collision_x;
+        return {x: mo.x, y: mo.y, width: mo.width, height: mo.height};
+    }
+
+    /**
+     * gets the bounds of the green slime
+     * @param {GreenSlime} mo - green slime object
+     * @returns object with coordinates and dimensions of the green slime
+     */
+    getGreenSlimeBounds(mo) {
+        return {
+            x: mo.x + 40,
+            y: mo.y + 120,
+            width: mo.width - 90,
+            height: mo.height - 120
+        };
+    }
+
+    /**
+    * gets the bounds of the blue slime
+    * @param {BlueSlime} mo - blue slime object
+    * @return object with coordinates and dimensions of the blue slime
+    */
+    getBlueSlimeBounds(mo) {
+        return {
+            x: mo.x + 60,
+            y: mo.y + 160,
+            width: mo.width - 130,
+            height: mo.height - 160
+        };
+    }
+
+    /**
+    * gets the bounds of the character
+    * @return object with coordinates and dimensions of the character
+    */
+    getCharacterBounds() {
+        return {
+            x: this.x + 90,
+            y: this.y + 90,
+            width: this.width - 200,
+            height: this.height - 90
+        };
+    }
+    
+    /**
+    * checks if there is a collision from above
+    * @param {Object} characterBounds - bounds of the character
+    * @param {Object} moBounds - bounds of the enemy object
+    * @returns true if collision from above happens
+    */
+    isUpCollisionDetected(characterBounds, moBounds) {
+        return characterBounds.y + characterBounds.height < moBounds.y + 10 &&
+               characterBounds.x + characterBounds.width > moBounds.x &&
+               characterBounds.x < moBounds.x;
     }
 
     /**
@@ -85,31 +132,23 @@ class MovableObject extends DrawableObject {
      * @returns all collidings 
      */
     isColliding(mo) {
-        let mo_collision_x = mo.x;
-        let mo_collision_y = mo.y;
-        let mo_collision_height = mo.height;
-        let mo_collision_width = mo.width;
+        let moBounds = this.getObjectBounds(mo);
+        let charBounds = this.getCharacterBounds();
+    
+        return this.isCollisionDetected(charBounds, moBounds);
+    }
 
-        let character_collision_x = this.x + 90;
-        let character_collision_y = this.y + 90;
-        let character_collision_width = this.width - 200;
-        let character_collision_height = this.height - 90;
-
-        if (mo instanceof GreenSlime) {
-            mo_collision_x = mo.x + 40;
-            mo_collision_y = mo.y + 120;
-            mo_collision_width = mo.width - 90;
-            mo_collision_height = mo.height - 120;
-        } else if (mo instanceof BlueSlime) {
-            mo_collision_x = mo.x + 60;
-            mo_collision_y = mo.y + 160;
-            mo_collision_width = mo.width - 130;
-            mo_collision_height = mo.height - 160;
-        }
-        return character_collision_x + character_collision_width > mo_collision_x &&
-            character_collision_y + character_collision_height > mo_collision_y &&
-            character_collision_x < mo_collision_x &&
-            character_collision_y < mo_collision_y + mo_collision_height;
+    /**
+     checks if there is a collision between two objects
+     @param {Object} charBounds - bounds of the character
+     @param {Object} moBounds - bounds of the enemy object
+     @returns true if collision happens
+    */
+    isCollisionDetected(charBounds, moBounds) {
+        return charBounds.x + charBounds.width > moBounds.x &&
+               charBounds.y + charBounds.height > moBounds.y &&
+               charBounds.x < moBounds.x + moBounds.width &&
+               charBounds.y < moBounds.y + moBounds.height;
     }
 
     /**

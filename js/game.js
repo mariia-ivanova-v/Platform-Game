@@ -11,6 +11,7 @@ endMusic.volume = 0.4;
 let intervalIds = [];
 const originalSetInterval = window.setInterval;
 let gameEnded = false;
+const activeMobileKeys = new Set();
 
 
 
@@ -34,6 +35,7 @@ function createWorld() {
     world = '';
     world = new World(canvas, keyboard);
 }
+
 /**
  * Overrides the default `setInterval` function, keeping track of all created interval ids.
  * @param callback - The function to be executed at the specified time interval.
@@ -76,6 +78,7 @@ function musicIsOn() {
     backgroundMusic.volume = 0;
     endMusic.volume = 0;
     musicOn = false
+    backgroundMusic.pause();
 }
 
 /**
@@ -85,8 +88,10 @@ function musicIsOff() {
     musicOn = true;
     if (!gameEnded) {
         world.toggleSound(false);
-        backgroundMusic.volume = 0.3;
-        backgroundMusic.play()
+        if (backgroundMusic.paused) {
+            backgroundMusic.volume = 0.3;
+            backgroundMusic.play();
+        }
     }
     endMusic.volume = 0.3;
 }
@@ -105,7 +110,7 @@ function changeSoundButton() {
 
 /**
  * makes info-container and background visible
- * @param {*} id - current info-container's id
+ * @param id - current info-container's id
  */
 function openInfo(id) {
     const currentInfo = document.getElementById(id);
@@ -139,13 +144,29 @@ function startGame() {
     init();
     if (musicOn) {
         endMusic.pause();
-        backgroundMusic.play();
         world.toggleSound(false);
+        backgroundMusic.play();
     } else {
         world.toggleSound(true)
     }
     changeSoundButton()
+    showMobButtons(true)
     gameEnded = false;
+}
+
+/**
+ * shows or hide mobile buttons
+ * @param {boolean} bool - true if I need to show buttons, otherwise false
+ */
+function showMobButtons(bool){
+    if(bool){
+        document.getElementById('mob-buttons').classList.remove('d-none');
+        document.getElementById('shoot').classList.remove('d-none');
+    }else{
+        document.getElementById('mob-buttons').classList.add('d-none');
+        document.getElementById('shoot').classList.add('d-none');
+    }
+    
 }
 
 /**
@@ -170,7 +191,6 @@ function toggleButtons() {
     infoButton.classList.add('d-none');
     controlButton.classList.add('d-none');
     soundButton.style.display = 'flex';
-
 }
 
 /**
@@ -212,11 +232,10 @@ function checkCharacter() {
 function endGame(bool) {
     const endScreen = document.getElementById('end-screen');
     const canvas = document.getElementById('canvas');
-    document.getElementById('mob-buttons').classList.add('d-none');
-    document.getElementById('shoot').classList.add('d-none');
+    showMobButtons(false);
     gameEnded = true;
     backgroundMusic.pause();
-    checkendMusic();
+    checkEndMusic();
     setEndText(bool, endScreen);
     stopAllIntervals();
     endScreen.classList.remove('d-none');
@@ -226,8 +245,8 @@ function endGame(bool) {
 /**
  * checks if music is on and than turns endmusic
  */
-function checkendMusic() {
-    endMusic.play();
+function checkEndMusic() {
+    endMusic.play()
     if (!musicOn) {
         musicIsOn();
     }
@@ -292,11 +311,18 @@ window.addEventListener('keyup', (e) => {
 })
 
 /**
+ * Checks if button is steel pressed or not
  * Updates the keyboard state for mobile controls based on the given key and boolean value
  * @param {*} key - the key to be updated ('RIGHT', 'LEFT', 'UP', 'SHOOT')
  * @param {*} boolean - the state to set (true for pressed, false for released)
  */
 function mobileKeys(key, boolean) {
+    if (boolean) {
+        activeMobileKeys.add(key);
+    } else {
+        activeMobileKeys.delete(key);
+    }
+
     if (key == 'RIGHT') {
         keyboard.RIGHT = boolean;
     }
@@ -310,3 +336,25 @@ function mobileKeys(key, boolean) {
         keyboard.SHOOT = boolean;
     }
 }
+
+/**
+ * handles touchend event
+ * releases all active keys and clears the set
+ */
+document.addEventListener('touchend', () => {
+    activeMobileKeys.forEach((key) => {
+        mobileKeys(key, false); 
+    });
+    activeMobileKeys.clear();
+});
+
+/**
+ * handles touchcancel event
+ * releases all active keys and clears the set
+ */
+document.addEventListener('touchcancel', () => {
+    activeMobileKeys.forEach((key) => {
+        mobileKeys(key, false);
+    });
+    activeMobileKeys.clear();
+});

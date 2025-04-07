@@ -122,6 +122,7 @@ class Character extends MovableObject {
         this.walk()
         this.animateAll();
     }
+    
     /**
      * checks if character moves
      */
@@ -160,6 +161,7 @@ class Character extends MovableObject {
             }
         }, 100)
     }
+    
     /**
      * animats the character if it's still alive
      */
@@ -173,7 +175,6 @@ class Character extends MovableObject {
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.walking_sound.play();
-
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
             }

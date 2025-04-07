@@ -52,6 +52,7 @@ class DrawableObject {
         ctx.rect(this.x + 90, this.y + 90, this.width - 200, this.height - 90);
         ctx.stroke();
     }
+
     /**
      * draws frame for boss
      * @param ctx - canvas rendering context where the image is drawn 
@@ -63,6 +64,7 @@ class DrawableObject {
         ctx.rect(this.x + 90, this.y + 110, this.width - 170, this.height - 110);
         ctx.stroke();
     }
+
     /**
      * draws frame for green slime
      * @param ctx - canvas rendering context where the image is drawn 
@@ -74,6 +76,7 @@ class DrawableObject {
         ctx.rect(this.x + 40, this.y + 120, this.width - 90, this.height - 120);
         ctx.stroke();
     }
+
     /**
      * draws frame for blue slime
      * @param ctx - canvas rendering context where the image is drawn 
@@ -85,7 +88,6 @@ class DrawableObject {
         ctx.rect(this.x + 60, this.y + 160, this.width - 130, this.height - 160);
         ctx.stroke();
     }
-
 
     /**
      * loades images and saves it in cash

@@ -32,6 +32,7 @@ class World{
             return false;
         }
     }
+
     /**
      * checks if character is dead
      * @returns true or false
@@ -43,6 +44,7 @@ class World{
             return false;
         }
     }
+
     /**
      * changes sound depending on boolean
      * @param {boolean} bool - tells what to do with sound (turn on or off)
@@ -88,6 +90,7 @@ class World{
             this.boss.stopAtacking();
         }
     }
+    
 /**
  * checks if player has ammo and let him shoot
  */
@@ -111,19 +114,42 @@ class World{
      * checks collision with everything
      */
     checkCollisions(){
+        this.checkBossCollision();
+        this.checkShootCollision();
+        this.checkEnemyCollision();      
+        this.checkCoinsCollision();
+        this.checkAmmoCollision();
+        this.checkBeerCollision();   
+    }
+
+    /**
+     * checks collision with boos
+     */
+    checkBossCollision(){
         if(this.character.isCollidingBoss(this.boss)){
             this.character.hit();
-                this.statusBar.setHpPercentage(this.character.energy);
+            this.statusBar.setHpPercentage(this.character.energy);
         }
+    }
+
+    /**
+     * checks collision with shoot
+     */
+    checkShootCollision(){
         this.ammoShoot = this.ammoShoot.filter((shoot) => {
             if (this.boss.isCollidingShoot(shoot)) {
                 this.boss.shooted();
                 this.bossHP.decreaseHp();
-                return false;
+                return false; 
             }
-            return true; 
+            return true;
         });
-        
+    }
+
+    /**
+     * checks collision with enemies
+     */
+    checkEnemyCollision(){
         this.level.enemies.forEach((enemy) =>{
             if(this.character.isColliding(enemy)){
                 this.character.hit();
@@ -133,18 +159,36 @@ class World{
                 this.enemyKilled(enemy);
             }
         })
+    }
+
+    /**
+     * checks collision with coins
+     */
+    checkCoinsCollision(){
         this.level.coins.forEach((coins)=>{
             if(this.character.isCollidingResource(coins)){
                 this.restoreResource(coins);
                 this.statusBar.updateCoins();
             }
         })
+    }
+
+    /**
+     * checks collision with ammo
+     */
+    checkAmmoCollision(){
         this.level.ammo.forEach((ammo)=>{
             if(this.character.isCollidingResource(ammo)){
                 this.restoreResource(ammo);
                 this.statusBar.updateAmmo();
             }
         })
+    }
+
+    /**
+     * checks collision with beer
+     */
+    checkBeerCollision(){
         this.level.beer.forEach((beer)=>{
             if(this.character.isCollidingResource(beer)){
                 this.character.heal();
@@ -168,7 +212,17 @@ class World{
         if(this.noticed){
             this.addToMap(this.bossHP);
         }
-        
+        this.drawTranslated()        
+        let self = this;
+        requestAnimationFrame(function(){
+            self.draw();
+        })
+    }
+
+    /**
+     * draws everything that translated by camera
+     */
+    drawTranslated(){
         this.ctx.translate(this.camera_x,0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -176,15 +230,7 @@ class World{
         this.addObjectsToMap(this.level.ammo);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.beer);
-
-
         this.ctx.translate(-this.camera_x,0);
-        
-        
-        let self = this;
-        requestAnimationFrame(function(){
-            self.draw();
-        })
     }
 
     /**
@@ -209,7 +255,6 @@ class World{
         if(mo.otherDirection){
             this.flipImageBack(mo);
         }
-        
     }
 
     /**
@@ -242,6 +287,7 @@ class World{
         }, 500); 
     
     }
+    
     /**
      * restores all resources
      * @param {Object} resource 
